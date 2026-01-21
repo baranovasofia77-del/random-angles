@@ -23,7 +23,7 @@
             overflow-x: hidden;
         }
 
-        /* 3. Эффект зернистости (Film Grain) */
+        /* Эффект зернистости (Film Grain) */
         body::before {
             content: "";
             position: fixed;
@@ -33,8 +33,23 @@
             pointer-events: none;
             z-index: 9999;
         }
+/* Эффект "пыли" */
+#header-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 300px; /* Занимает только верхнюю часть (шапку) */
+    z-index: -1; /* Уходит на задний план */
+    opacity: 0.4; /* Делаем эффект ненавязчивым */
+}
 
-        /* 5. Кастомный курсор */
+header {
+    position: relative;
+    background: none; /* Убираем заливку, чтобы видеть частицы */
+}
+
+        /* Кастомный курсор */
         #cursor {
             width: 20px; height: 20px;
             border: 1px solid var(--silver);
@@ -55,19 +70,33 @@
             z-index: 10001;
         }
 
-        /* 4. Время выдержки */
+        /* Время "выдержки" */
         #timer {
-            position: fixed;
-            bottom: 20px; left: 20px;
-            font-size: 0.7rem;
-            color: var(--silver);
-            letter-spacing: 2px;
-            z-index: 1000;
-        }
+    position: fixed;
+    top: 30px;        /* Чуть ниже индикатора прогресса */
+    right: 25px;      /* Прижимаем к правому краю */
+    font-size: 0.65rem;
+    color: var(--silver);
+    letter-spacing: 2px;
+    z-index: 10002;
+    text-align: right; /* Выравнивание в два уровня по правому краю */
+    line-height: 1.5;  /* Расстояние между строками */
+    text-transform: uppercase;
+    pointer-events: none; /* Чтобы не мешал кликать по ссылкам под ним */
+}
 
+#seconds {
+    font-size: 1.1rem; /* Делаем цифры времени крупнее и акцентнее */
+    color: var(--header-color); /* Цвет #70f3ff, как у заголовков */
+    font-weight: bold;
+}
+
+        /* Шапка */
         header { padding: 80px 20px; text-align: center; }
         .main-title { font-family: var(--accent-font); color: var(--header-color); font-size: 3.5rem; letter-spacing: 4px; }
+        .sub-title { font-size: 1rem; color: #fff; opacity: 0.7; margin-top: 10px; }
 
+        /* Навигация: ЦЕНТРИРОВАНИЕ */
         nav { 
             position: sticky; top: 0; background: rgba(12, 2, 51, 0.8); 
             backdrop-filter: blur(10px); padding: 20px 0; 
@@ -75,7 +104,7 @@
         }
         nav a { color: var(--header-color); text-decoration: none; margin: 0 20px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* 2. Микро-анимация появления */
+        /* Микро-анимация появления */
         .reveal { opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
@@ -94,7 +123,7 @@
         .photo-item img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(50%); transition: 0.5s; }
         .photo-item:hover img { filter: grayscale(0%); transform: scale(1.05); }
 
-        /* 1. Интерактивная галерея (Lightbox) */
+        /* Интерактивная галерея (Lightbox) */
         #lightbox {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(12, 2, 51, 0.95);
@@ -106,38 +135,47 @@
         .contact-form { max-width: 400px; margin: 0 auto; }
         input, textarea { width: 100%; padding: 12px; background: none; border: 1px solid #333; color: #fff; margin-top: 10px; }
         .submit-btn { width: 100%; margin-top: 20px; padding: 15px; border: 1px solid var(--header-color); background: none; color: var(--header-color); cursor: none; }
+    
+        /* Личный кабинет */
+        .lk-box { border: 1px dashed var(--header-color); padding: 40px; text-align: center; }
+
+        footer { text-align: center; padding: 60px; font-size: 0.75rem; border-top: 1px solid #1a1a4d; opacity: 0.6; }
     </style>
 </head>
 <body>
 
+<canvas id="header-bg"></canvas>
 <div id="cursor"></div>
 <div id="progress-bar"></div>
-<div id="timer">Ваша выдержка: <span id="seconds">0</span> сек.</div>
+<div id="timer">Ваша выдержка:<br><span id="seconds">0</span> сек.</div>
 <div id="lightbox"><img src="" alt="Full size"></div>
 
 <header id="home">
     <div class="main-title">random-angles</div>
+    <div class="sub-title">Тихая выдержка</div>
 </header>
 
 <nav>
     <a href="#home">Главная</a>
     <a href="#about">О проекте</a>
-    <a href="#portfolio">Портфолио</a>
+    <a href="#portfolio">Ракурсы</a>
     <a href="#contacts">Связь</a>
+    <a href="#lk">ЛК</a>
 </nav>
 
 <section id="about" class="reveal">
     <h2>О проекте</h2>
-    <p style="text-align: center;">Личный фото-архив и платформа для обмена визуальными заметками в высоком качестве.</p>
+    <p style="text-align: center;">Фото-архив и платформа для обмена визуальными заметками в высоком качестве.</p>
     
     <div class="important-block">
         <h3 style="color: var(--header-color); font-family: var(--accent-font);">Важно</h3>
-        <p>Каждый кадр в этом архиве является объектом авторского права. Мы ценим тишину и качество выше скорости обновлений.</p>
+        <p>Каждый кадр, который Вы публикуете в этом архиве или сохраняете, является объектом авторского права. Площадка сделана так, что любой пользователь сайта может скачать изображение и использовать его в своих целях. Поэтому, настоятельно рекомендуется собственноручно оставлять на своих фотографиях вотермарки или подписи, если Вам важен факт авторства; если Вы этого не сделаете, то Вы подтверждаете свое согласие на использование Ваших снимков другими людьми. Обдумайте, каким контентом вы хотите здесь делиться. Приятного опыта пользования сайтом.</p>
+        <p>В случае возникновения каких-либо проблем воспользуйтесь формой связи в конце сайта. С Уважением, админчик</p>
     </div>
 </section>
 
 <section id="portfolio" class="reveal">
-    <h2>Портфолио</h2>
+    <h2>Ракурсы</h2>
     <div class="gallery-grid">
         <div class="photo-item"><img src="images/1.jpg" alt="1"></div>
         <div class="photo-item"><img src="images/2.jpg" alt="2"></div>
@@ -160,8 +198,23 @@
     </div>
 </section>
 
+<section id="lk">
+    <h2>Личный кабинет</h2>
+    <div class="lk-box">
+        <p>Добро пожаловать в ваш закрытый архив.</p>
+        <button class="submit-btn" style="width: auto; padding: 12px 40px;">Загрузить новое фото</button>
+    </div>
+</section>
+
 <footer>
-    <p style="text-align: center; padding: 40px; font-size: 0.7rem;">&copy; 2026 random-angles</p>
+    <div class="social-links">
+        <a href="#">Telegram</a>
+        <a href="#">VK</a>
+    <div class="contact-info">
+        <p>Email: <a href="****:****@random-angles.site">info@random-angles.site</a></p>
+        <p>Тел: <a href="tel:+79001234567">+7 (***) ***-**-** </a></p>
+    </div>
+    <p>&copy; 2026 random-angles. Все права защищены.(Но это неточно) <br> Сделано в рамках проекта "Тихая выдержка".</p>
 </footer>
 
 <script>
@@ -205,6 +258,63 @@
     });
     lightbox.onclick = () => lightbox.style.display = 'none';
 </script>
+
+ /* Эффект "пыли" */
+<script>
+const canvas = document.getElementById('header-bg');
+const ctx = canvas.getContext('2d');
+let particles = [];
+
+function initCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = 300;
+}
+
+class Particle {
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 1.5;
+        this.speedX = Math.random() * 0.5 - 0.25;
+        this.speedY = Math.random() * 0.5 - 0.25;
+    }
+    update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+    }
+    draw() {
+        ctx.fillStyle = '#70f3ff'; // Цвет ваших кнопок
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+function createParticles() {
+    for (let i = 0; i < 50; i++) {
+        particles.push(new Particle());
+    }
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+        p.update();
+        p.draw();
+    });
+    requestAnimationFrame(animate);
+}
+
+window.addEventListener('resize', initCanvas);
+initCanvas();
+createParticles();
+animate();
+</script>
+
 
 </body>
 </html>
