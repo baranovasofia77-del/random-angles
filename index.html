@@ -122,6 +122,8 @@
 
 
         /* ГОРИЗОНТАЛЬНЫЕ ЛЕНТЫ */
+        .section-label { padding: 0 20px; color: var(--header-color); font-family: var(--accent-font); font-size: 1.3rem; margin-top: 40px; text-align: center; }
+
         .horizontal-scroll {
             display: flex; overflow-x: auto; gap: 15px; padding: 20px;
             scroll-snap-type: x mandatory; scrollbar-width: none; /* Скрываем скроллбар */
@@ -133,17 +135,6 @@
             border: 1px solid var(--silver); overflow: hidden;
         }
         .scroll-item img { width: 100%; height: 100%; object-fit: cover; }
-
-        .section-label { padding-left: 20px; color: var(--header-color); font-family: var(--accent-font); font-size: 1.2rem; }
-
-        /* Сетка портфолио (Адаптивная) */
-        .gallery-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-            gap: 15px; padding: 20px;
-        }
-        .photo-item { height: 350px; border: 1px solid var(--silver); overflow: hidden; }
-        .photo-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
 
            /* Личный кабинет */
         .lk-box { border: 1px dashed var(--header-color); padding: 40px; text-align: center; }
@@ -180,26 +171,16 @@
 
     <nav>
         <a href="#home">Главная</a>
-        <a href="#about">О проекте</a>
-        <a href="#portfolio">Ракурсы</a>
         <a href="#contacts">Связь</a>
+        <input type="text" autocomplete="off" placeholder="Поиск..." style="background: rgba(255,255,255,0.05); border: 1px solid var(--header-color); border-radius: 20px; padding: 5px 15px; color: #fff; width: 120px;">
+        <a href="#about">О проекте</a>
+        <a href="#portfolio">Ракурсы</a>     
         <a href="#lk">ЛК</a>
         <div class="search-container">
             <input type="text" class="search-input" placeholder="Поиск...">
         </div>
     </nav>
 
-    <section id="about" class="reveal">
-        <h2>О проекте</h2>
-        <p style="text-align: center;">Фото-архив и платформа для обмена визуальными заметками в высоком качестве.</p>
-    
-        <div class="important-block">
-            <h3 style="color: var(--header-color); font-family: var(--accent-font);">Важно</h3>
-            <p>Каждый кадр, который Вы публикуете в этом архиве или сохраняете, является объектом авторского права. Площадка сделана так, что любой пользователь сайта может скачать изображение и использовать его в своих целях. Поэтому, настоятельно рекомендуется собственноручно оставлять на своих фотографиях вотермарки или подписи, если Вам важен факт авторства; если Вы этого не сделаете, то Вы подтверждаете свое согласие на использование Ваших снимков другими людьми. Обдумайте, каким контентом вы хотите здесь делиться. Приятного опыта пользования сайтом.</p>
-            <p>В случае возникновения каких-либо проблем воспользуйтесь формой связи в конце сайта. С Уважением, админчик</p>
-        </div>
-    </section>
-    
     <p class="section-label">Лента недели</p>
     <div class="horizontal-scroll">
         <div class="scroll-item"><img src="images/1.jpg"></div>
@@ -216,30 +197,17 @@
         <div class="scroll-item"><img src="images/5.jpg"></div>
     </div>
     
-    <section id="portfolio" class="reveal">
-        <h2 style="color: var(--header-color); font-family: var(--accent-font); text-align: center;">Ракурсы</h2>
-        <div class="gallery-grid">
-            <div class="photo-item"><img src="images/1.jpg"></div>
-            <div class="photo-item"><img src="images/2.jpg"></div>
-            <div class="photo-item"><img src="images/3.jpg"></div>
-            <div class="photo-item"><img src="images/4.jpg"></div>
-            <div class="photo-item"><img src="images/5.jpg"></div>
-            <div class="photo-item"><img src="images/6.jpg"></div>
+    <section id="about" class="reveal">
+        <h2>О проекте</h2>
+        <p style="text-align: center;">Фото-архив и платформа для обмена визуальными заметками в высоком качестве.</p>
+    
+        <div class="important-block">
+            <h3 style="color: var(--header-color); font-family: var(--accent-font);">Важно</h3>
+            <p>Каждый кадр, который Вы публикуете в этом архиве или сохраняете, является объектом авторского права. Площадка сделана так, что любой пользователь сайта может скачать изображение и использовать его в своих целях. Поэтому, настоятельно рекомендуется собственноручно оставлять на своих фотографиях вотермарки или подписи, если Вам важен факт авторства; если Вы этого не сделаете, то Вы подтверждаете свое согласие на использование Ваших снимков другими людьми. Обдумайте, каким контентом вы хотите здесь делиться. Приятного опыта пользования сайтом.</p>
+            <p>В случае возникновения каких-либо проблем воспользуйтесь формой связи в конце сайта. С Уважением, админчик</p>
         </div>
     </section>
 
-    <section id="contacts" style="max-width: 400px; margin: 0 auto; padding: 40px 20px;">
-        <h2 style="color: var(--header-color); font-family: var(--accent-font); text-align: center;">Связаться с нами</h2>
-        <div class="contact-form">
-            <form action="#">
-                <input type="text" placeholder="Имя" style="width: 100%; padding: 10px; background: none; border: 1px solid #333; color: #fff; margin-bottom: 10px;">
-                <input type="email" placeholder="Email" style="width: 100%; padding: 10px; background: none; border: 1px solid #333; color: #fff; margin-bottom: 10px;">
-                <textarea rows="3" placeholder="Сообщение" style="width: 100%; padding: 10px; background: none; border: 1px solid #333; color: #fff; margin-bottom: 10px;"></textarea>
-                <button style="width: 100%; padding: 15px; border: 1px solid var(--header-color); background: none; color: var(--header-color); text-transform: uppercase;">Отправить</button>
-            </form>
-        </div>
-    </section>
-    
     <section id="lk">
         <h2>Личный кабинет</h2>
         <div class="lk-box">
@@ -247,7 +215,18 @@
             <button class="submit-btn" style="width: auto; padding: 12px 40px;">Новый ракурс</button>
         </div>
     </section>
-
+    
+    <section id="contacts" style="max-width: 400px; margin: 0 auto; padding: 40px 20px;">
+        <h2 style="color: var(--header-color); font-family: var(--accent-font); text-align: center;">Связаться с нами</h2>
+        <div class="contact-form">
+            <form action="#">
+                <input type="text" autocomplete="off" placeholder="Имя" style="width: 100%; padding: 10px; background: none; border: 1px solid #333; color: #fff; margin-bottom: 10px;">
+                <input type="email" autocomplete="off" placeholder="Email" style="width: 100%; padding: 10px; background: none; border: 1px solid #333; color: #fff; margin-bottom: 10px;">
+                <textarea rows="3" autocomplete="off" placeholder="Сообщение" style="width: 100%; padding: 10px; background: none; border: 1px solid #333; color: #fff; margin-bottom: 10px;"></textarea>
+                <button style="width: 100%; padding: 15px; border: 1px solid var(--header-color); background: none; color: var(--header-color); text-transform: uppercase;">Отправить</button>
+            </form>
+        </div>
+    </section>
 
     <footer>
         <div class="social-links">
