@@ -240,6 +240,13 @@
             <p>Тел: <a href="tel:+79001234567">+7 (900) 123-45-*67</a></p>
         </div>
         <p>&copy; 2026 random-angles. Все права защищены.(Но это неточно) <br> Сделано в рамках проекта "Тихая выдержка".</p>
+            <!-- QR-код через бесплатное API -->
+        <div style="text-align: center; margin-top: 20px;">
+            <p style="font-size: 0.7rem; color: var(--silver); letter-spacing: 2px;">QR-code</p>
+            <img src="https://api.qrserver.com" 
+                alt="QR Code" 
+                style="border: 1px solid var(--silver); padding: 5px;">
+        </div>
     </footer>
     
     <script>
@@ -271,9 +278,7 @@
                 }
             });
         };
-    </script>
-    
-    <script>
+
         const canvas = document.getElementById('header-bg');
         const ctx = canvas.getContext('2d');
         let particles = [];
