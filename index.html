@@ -153,6 +153,47 @@
             .search-input:focus { width: 100px; }
             #timer { top: 10px; right: 10px; transform: scale(0.8); }
         }
+        
+        .site-footer {
+            background: #05011a;
+            padding: 40px 20px;
+            border-top: 1px solid rgba(224,224,224,0.05);
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between; /* Расставляет блоки по краям */
+            align-items: center;
+    }
+
+        .qr-label {
+            font-size: 0.6rem;
+            color: var(--silver);
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            text-align: right;
+        }
+
+        .qr-img {
+            width: 100px;
+            height: 100px;
+            border: 1px solid var(--header-color);
+            padding: 5px;
+            background: #0c0233;
+        }
+
+        /* Для мобильных устройств: QR-код встанет под текстом в центре */
+        @media (max-width: 600px) {
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 30px;
+            }
+            .qr-label { text-align: center; }
+        }
+
     </style>
 </head>
 <body>
