@@ -73,7 +73,7 @@
         /* Адаптивный таймер */
         #timer {
             position: fixed; 
-            top: 27px; /* Чуть ниже индикатора прогресса */
+            top: 30px; /* Чуть ниже индикатора прогресса */
             right: 20px; /* Прижимаем к правому краю */
             font-size: 0.6rem; 
             color: var(--silver);
@@ -200,7 +200,7 @@
     
     <div id="cursor"></div>
     <div id="progress-bar"></div>
-    <div id="timer">Ваша выдержка:<span id="seconds">0</span> СЕК.</div>
+    <div id="timer">Ваша выдержка:<span id="seconds">0 СЕК.</span></div>
 
     <header id="home">
         <canvas id="header-bg"></canvas>
@@ -236,7 +236,7 @@
     <p class="section-label">Ракурс зимы</p>
     <div class="horizontal-scroll">
         <div class="scroll-item"><img src="images/3.jpg" alt="Зима 1"></div>
-        <div class="scroll-item"><img src="images/6.jpg" alt="изображение в ленте"></div>
+        <div class="scroll-item"><img src="images/15.jpg" alt="изображение в ленте"></div>
         <div class="scroll-item"><img src="images/8.jpg" alt="Зима 2"></div>
         <div class="scroll-item"><img src="images/12.jpg" alt="изображение в ленте"></div>
     </div>
@@ -280,13 +280,13 @@
             <a href="#">VK</a>
         </div> 
         <div class="contact-info">
-                <p>Email: <a href="****:****@random-angles.site">info@random-angles.site</a></p>
+                <p>e-mail: <a href="****:****@random-angles.site">info@random-angles.site</a></p>
                 <p>Тел: <a href="tel:+79001234567">+7 (900) 123-45-*67</a></p>      
         </div>
         <p>&copy; 2026 random-angles. Все права защищены.(Но это неточно) <br> Сделано в рамках проекта "Тихая выдержка".</p>
             
         <div style="text-align: center; margin: 40px auto;">
-            <p style="font-size: 0.7rem; color: var(--silver); letter-spacing: 2px; margin-bottom: 15px;">SCAN TO VISIT</p>
+            <p style="font-size: 0.7rem; color: var(--silver); letter-spacing: 2px; margin-bottom: 15px;">QR-code тихой выдержки</p>
     
     <!-- Ссылка на ваш SVG-файл -->
             <img src="images/qr-code.svg" 
@@ -305,10 +305,12 @@
 
         // 4. Таймер выдержки
         let sec = 0;
+        const secElement = document.getElementById('seconds');
         setInterval(() => {
             sec++;
-            document.getElementById('seconds').innerText = ' ' + sec;
+            secElement.innerText = sec + " сек."; // Добавляем слово "сек." прямо в скрипте
         }, 1000);
+
 
         // Индикатор прогресса
         window.onscroll = function() {
