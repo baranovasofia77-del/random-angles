@@ -40,12 +40,13 @@
             left: 0;
             width: 100%;
             height: 300px; /* Занимает только верхнюю часть (шапку) */
-            z-index: -1; /* Уходит на задний план */
-            opacity: 0.4; /* Делаем эффект ненавязчивым */
+            z-index: 0; /* Уходит на задний план */
+            pointer-events: none;
         }
         header {
-            position: relative;
-            background: none; /* Убираем заливку, чтобы видеть частицы */
+            position: relative; /* Чтобы canvas привязался к координатам header */
+            z-index: 1;        /* Текст будет над пылью */
+            overflow: hidden;
         }
         
         /* Кастомный курсор (скрыт на мобилках) */
@@ -156,12 +157,12 @@
 </head>
 <body>
     
-    <canvas id="header-bg"></canvas>
     <div id="cursor"></div>
     <div id="progress-bar"></div>
     <div id="timer">Ваша выдержка:<span id="seconds">0</span> СЕК.</div>
 
     <header id="home">
+        <canvas id="header-bg"></canvas>
         <div class="main-title">random-angles</div>
         <p style="color: var(--silver); font-size: 0.8rem; letter-spacing: 3px;">ТИХАЯ ВЫДЕРЖКА</p>
     </header>
@@ -240,12 +241,14 @@
             <p>Тел: <a href="tel:+79001234567">+7 (900) 123-45-*67</a></p>
         </div>
         <p>&copy; 2026 random-angles. Все права защищены.(Но это неточно) <br> Сделано в рамках проекта "Тихая выдержка".</p>
-            <!-- QR-код через бесплатное API -->
-        <div style="text-align: center; margin-top: 20px;">
-            <p style="font-size: 0.7rem; color: var(--silver); letter-spacing: 2px;">QR-code</p>
-            <img src="https://api.qrserver.com" 
-                alt="QR Code" 
-                style="border: 1px solid var(--silver); padding: 5px;">
+            
+        <div style="text-align: center; margin: 40px auto;">
+            <p style="font-size: 0.7rem; color: var(--silver); letter-spacing: 2px; margin-bottom: 15px;">SCAN TO VISIT</p>
+    
+    <!-- Ссылка на ваш SVG-файл -->
+            <img src="images/qr-code.svg" 
+                 alt="QR Code" 
+                 style="border: 1px solid var(--header-color); padding: 10px; background: #0c0233; width: 140px; height: 140px;">
         </div>
     </footer>
     
@@ -290,46 +293,41 @@
         
         class Particle {
             constructor() {
+                this.reset();
+            }
+            reset() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 1.5;
-                this.speedX = Math.random() * 0.5 - 0.25;
-                this.speedY = Math.random() * 0.5 - 0.25;
+                this.size = Math.random() * 2;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random();
             }
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
-                if (this.x > canvas.width) this.x = 0;
-                if (this.x < 0) this.x = canvas.width;
-                if (this.y > canvas.height) this.y = 0;
-                if (this.y < 0) this.y = canvas.height;
+                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                    this.reset();
+                }
             }
             draw() {
-                ctx.fillStyle = '#70f3ff'; // Цвет ваших кнопок
+                ctx.fillStyle = `rgba(112, 243, 255, ${this.opacity})`; // Цвет #70f3ff
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
             }
         }
 
-        function createParticles() {
-            for (let i = 0; i < 50; i++) {
-                particles.push(new Particle());
-            }
-        }
+        for (let i = 0; i < 80; i++) { particles.push(new Particle()); }
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
+            particles.forEach(p => { p.update(); p.draw(); });
             requestAnimationFrame(animate);
         }
 
         window.addEventListener('resize', initCanvas);
         initCanvas();
-        createParticles();
         animate();
     </script>
 </body>
